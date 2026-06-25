@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="hi"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Google Contacts Sync Guide — Dipak Kumar</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='bg' x1='8' y1='6' x2='56' y2='58'%3E%3Cstop stop-color='%2358a6ff'/%3E%3Cstop offset='1' stop-color='%233fb950'/%3E%3C/linearGradient%3E%3Cfilter id='glow' x='-20%25' y='-20%25' width='140%25' height='140%25'%3E%3CfeGaussianBlur stdDeviation='2.2' result='b'/%3E%3CfeMerge%3E%3CfeMergeNode in='b'/%3E%3CfeMergeNode in='SourceGraphic'/%3E%3C/feMerge%3E%3C/filter%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='%230d1117'/%3E%3Crect x='9' y='8' width='46' height='48' rx='11' fill='url(%23bg)' filter='url(%23glow)'/%3E%3Crect x='14' y='14' width='36' height='36' rx='8' fill='%23161b22' fill-opacity='.92'/%3E%3Ccircle cx='32' cy='27' r='7' fill='%23e6edf3'/%3E%3Cpath d='M20 44c2.3-7 21.7-7 24 0' fill='none' stroke='%23e6edf3' stroke-width='5' stroke-linecap='round'/%3E%3Cpath d='M45 22a14 14 0 0 0-23-7' fill='none' stroke='%233fb950' stroke-width='4' stroke-linecap='round'/%3E%3Cpath d='M45 22l-1-8 7 4' fill='none' stroke='%233fb950' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M19 42a14 14 0 0 0 23 7' fill='none' stroke='%2358a6ff' stroke-width='4' stroke-linecap='round'/%3E%3Cpath d='M19 42l1 8-7-4' fill='none' stroke='%2358a6ff' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<meta name="theme-color" content="#0d1117">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css"></head>
+<body>
+
+<!-- TOP BANNER -->
+<div class="top-banner">
+  <a href="https://claude.ai/share/44b27baa-98c3-4f1d-a9f3-5c13a8e24fcc" target="_blank" class="banner-link claude">
+    ❤️ Claude Chat — पूरी conversation देखें
+  </a>
+  <a href="https://github.com/dipakraj09/My-Contacts" target="_blank" class="banner-link github">
+    ⭐ GitHub — dipakraj09/My-Contacts
+  </a>
+  <button class="theme-toggle" type="button" id="themeToggle" aria-label="Switch to light theme" aria-pressed="false">
+    <span class="theme-toggle-icon" aria-hidden="true">🌙</span>
+    <span class="theme-toggle-text">Dark</span>
+  </button>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">✅ Working Guide · June 2026</div>
+  <h1>Google Contacts → Website<br>Auto-Sync Guide</h1>
+  <p>Google में contact add करो — website पर automatically दिखेगा। एक बार setup, हमेशा automatic।</p>
+
+  <div class="flow-diagram">
+    <div class="flow-box">📱 Google Contacts</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-box">⚙️ Apps Script</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-box">📄 contacts.json</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-box">🌐 Website</div>
+  </div>
+
+  <div class="hero-stats">
+    <div class="stat">
+      <span class="stat-num">420</span>
+      <span class="stat-label">Contacts Synced</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">5</span>
+      <span class="stat-label">Parts in Guide</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">1hr</span>
+      <span class="stat-label">Auto Sync Timer</span>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="container">
+
+  <!-- PART 1 — GitHub Token -->
+  <div class="part">
+    <div class="part-header">
+      <div class="part-icon green">🔑</div>
+      <div>
+        <div class="part-title">PART 1 — GitHub Token बनाओ</div>
+        <div class="part-subtitle">Script को GitHub पर file update करने की permission देता है</div>
+      </div>
+    </div>
+    <div class="part-body">
+      <div class="warning">
+        ⚠️ <span><strong>Token कभी भी किसी को मत भेजो</strong> — chat में भी नहीं! Token एक password जैसा है।</span>
+      </div>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-content">जाओ → <a href="https://github.com/settings/tokens" target="_blank" class="link">github.com/settings/tokens</a></div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-content">Click करो → <strong>"Generate new token (classic)"</strong> ← यह वाला! Fine-grained नहीं!</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-content"><strong>Note</strong> में लिखो: <span class="tag">Contacts Sync</span></div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-content"><strong>"repo"</strong> वाला checkbox tick करो ✅ — सिर्फ यही एक!</div>
+        </div>
+        <div class="step">
+          <div class="step-num">5</div>
+          <div class="step-content"><strong>"Generate token"</strong> दबाओ → Token copy करो — <strong>सिर्फ एक बार दिखता है!</strong></div>
+        </div>
+        <div class="step">
+          <div class="step-num">6</div>
+          <div class="step-content">Token को अपने phone के notepad में locally save करो</div>
+        </div>
+      </div>
+
+      <div class="info-box" style="margin-top: 16px;">
+        💡 Token ऐसा दिखता है: <code style="font-family: 'JetBrains Mono'; color: #ffa657; background: rgba(255,166,87,0.1); padding: 2px 8px; border-radius: 4px;">ghp_xxxxxxxxxxxxxxxxxxxx</code>
+      </div>
+    </div>
+  </div>
+
+  <!-- PART 2 — Cloud Console -->
+  <div class="part">
+    <div class="part-header">
+      <div class="part-icon blue">☁️</div>
+      <div>
+        <div class="part-title">PART 2 — Google Cloud Console Setup</div>
+        <div class="part-subtitle">People API enable करो ताकि contacts पढ़ सके</div>
+      </div>
+    </div>
+    <div class="part-body">
+
+      <div class="subsection">
+        <div class="subsection-title">Step 2.1 — Project बनाओ</div>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-content">जाओ → <a href="https://console.cloud.google.com" target="_blank" class="link">console.cloud.google.com</a></div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-content">ऊपर project dropdown → <strong>"New Project"</strong> → नाम: <span class="tag">Contacts Sync</span></div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-content">Project बनने के बाद Dashboard खुलेगा → <strong>Project number</strong> note करो (बाद में काम आएगा)</div>
+          </div>
+        </div>
+      </div>
+
+      <hr>
+
+      <div class="subsection">
+        <div class="subsection-title">Step 2.2 — People API Enable करो</div>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-content">जाओ → <a href="https://console.cloud.google.com/apis/library/people.googleapis.com" target="_blank" class="link">People API Library</a></div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-content"><strong>"Enable"</strong> button दबाओ ✅</div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-content">Status: <strong style="color: var(--green);">Enabled</strong> दिखना चाहिए</div>
+          </div>
+        </div>
+      </div>
+
+      <hr>
+
+      <div class="subsection">
+        <div class="subsection-title">Step 2.3 — OAuth Consent Screen</div>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-content">Left menu → <strong>"APIs &amp; Services"</strong> → <strong>"OAuth consent screen"</strong></div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-content"><strong>"Get started"</strong> दबाओ</div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-content"><strong>App name:</strong> <span class="tag">Contacts Sync</span> &nbsp;|&nbsp; <strong>Email:</strong> अपनी Gmail ID</div>
+          </div>
+          <div class="step">
+            <div class="step-num">4</div>
+            <div class="step-content"><strong>Next</strong> → <strong>"External"</strong> select करो → <strong>Next</strong></div>
+          </div>
+          <div class="step">
+            <div class="step-num">5</div>
+            <div class="step-content">Email confirm करो → <strong>Next</strong> → <strong>Create</strong> ✅</div>
+          </div>
+        </div>
+      </div>
+
+      <hr>
+
+      <div class="subsection">
+        <div class="subsection-title">Step 2.4 — Test User Add करो</div>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-content">Left menu → <strong>"Audience"</strong></div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-content"><strong>"+ Add users"</strong> → अपनी Gmail ID डालो → <strong>Save</strong> ✅</div>
+          </div>
+        </div>
+        <div class="info-box" style="margin-top: 14px;">
+          💡 यह step ज़रूरी है — बिना इसके <strong>"Access blocked"</strong> error आएगी
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- PART 3 — Apps Script -->
+  <div class="part">
+    <div class="part-header">
+      <div class="part-icon purple">📝</div>
+      <div>
+        <div class="part-title">PART 3 — Google Apps Script Setup</div>
+        <div class="part-subtitle">यह script contacts पढ़कर GitHub पर भेजती है</div>
+      </div>
+    </div>
+    <div class="part-body">
+
+      <div class="subsection">
+        <div class="subsection-title">Step 3.1 — Project बनाओ</div>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-content">जाओ → <a href="https://script.google.com" target="_blank" class="link">script.google.com</a></div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-content"><strong>"New Project"</strong> click करो → ऊपर नाम बदलो: <span class="tag">Contacts Sync</span></div>
+          </div>
+        </div>
+      </div>
+
+      <hr>
+
+      <div class="subsection">
+        <div class="subsection-title">Step 3.2 — Cloud Project Link करो</div>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-content">Left side → <strong>⚙️ Settings</strong> (gear icon)</div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-content"><strong>"मेनिफ़ेस्ट फ़ाइल दिखाएं"</strong> checkbox tick करो ✅</div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-content">नीचे <strong>"Google Cloud Platform (GCP) Project"</strong> → <strong>"प्रोजेक्ट बदलें"</strong></div>
+          </div>
+          <div class="step">
+            <div class="step-num">4</div>
+            <div class="step-content">Cloud Console के Dashboard से copy किया <strong>Project number</strong> paste करो → <strong>"Set project"</strong> ✅</div>
+          </div>
+        </div>
+      </div>
+
+      <hr>
+
+      <div class="subsection">
+        <div class="subsection-title">Step 3.3 — appsscript.json Edit करो</div>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-content">Left side → <strong>"appsscript.json"</strong> file click करो</div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-content">सारा content delete करो → नीचे वाला code paste करो → <strong>Save (Ctrl+S)</strong></div>
+          </div>
+        </div>
+
+        <div class="code-block">
+          <div class="code-header">
+            <span class="code-lang">📄 appsscript.json</span>
+            <div class="code-actions">
+              <button class="copy-btn" onclick="copyCode(this, 'json-code')">📋 Copy</button>
+            </div>
+          </div>
+          <div class="code-body">
+            <pre id="json-code">{
+  "timeZone": "Asia/Kolkata",
+  "dependencies": {},
+  "exceptionLogging": "STACKDRIVER",
+  "runtimeVersion": "V8",
+  "oauthScopes": [
+    "https://www.googleapis.com/auth/contacts.readonly",
+    "https://www.googleapis.com/auth/script.external_request"
+  ]
+}</pre>
+          </div>
+        </div>
+      </div>
+
+      <hr>
+
+      <div class="subsection">
+        <div class="subsection-title">Step 3.4 — Main Sync Code</div>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-content">Left side → <strong>"कोड.gs"</strong> → पुराना सब delete करो</div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-content">नीचे वाला code paste करो → <span class="tag">APNA_TOKEN_YAHAN</span> की जगह अपना <strong>ghp_ token</strong> paste करो</div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-content"><strong>Save (Ctrl+S)</strong> ✅</div>
+          </div>
+        </div>
+
+        <div class="code-block code-collapsed" id="script-block">
+          <div class="code-header">
+            <span class="code-lang">⚙️ कोड.gs — Google Apps Script</span>
+            <div class="code-actions">
+              <button class="toggle-btn" onclick="toggleCode('script-block', this)">👁️ Show More</button>
+              <button class="copy-btn" onclick="copyCode(this, 'gs-code')">📋 Copy</button>
+            </div>
+          </div>
+          <div class="code-body">
+            <pre id="gs-code"><span class="kw">function</span> <span class="fn">syncContacts</span>() {
+  <span class="kw">var</span> <span class="nm">GITHUB_TOKEN</span> = <span class="str">"APNA_TOKEN_YAHAN"</span>; <span class="cm">// ← यहाँ अपना ghp_ token paste करो</span>
+  <span class="kw">var</span> <span class="nm">GITHUB_USERNAME</span> = <span class="str">"dipakraj09"</span>;        <span class="cm">// ← अपना GitHub username</span>
+  <span class="kw">var</span> <span class="nm">GITHUB_REPO</span> = <span class="str">"My-Contacts"</span>;           <span class="cm">// ← अपना repo name</span>
+  
+  <span class="kw">var</span> <span class="nm">url</span> = <span class="str">"https://people.googleapis.com/v1/people/me/connections?personFields=names,phoneNumbers&amp;pageSize=1000"</span>;
+  
+  <span class="kw">var</span> <span class="nm">response</span> = <span class="fn">UrlFetchApp</span>.<span class="fn">fetch</span>(<span class="nm">url</span>, {
+    headers: {
+      Authorization: <span class="str">"Bearer "</span> + <span class="fn">ScriptApp</span>.<span class="fn">getOAuthToken</span>()
+    }
+  });
+  
+  <span class="kw">var</span> <span class="nm">data</span> = <span class="fn">JSON</span>.<span class="fn">parse</span>(<span class="nm">response</span>.<span class="fn">getContentText</span>());
+  <span class="kw">var</span> <span class="nm">contacts</span> = [];
+  
+  <span class="kw">if</span> (<span class="nm">data</span>.connections) {
+    <span class="nm">data</span>.connections.<span class="fn">forEach</span>(<span class="kw">function</span>(<span class="nm">person</span>) {
+      <span class="kw">var</span> <span class="nm">name</span> = <span class="nm">person</span>.names ? <span class="nm">person</span>.names[<span class="nm">0</span>].displayName : <span class="str">"No Name"</span>;
+      <span class="kw">var</span> <span class="nm">phone</span> = <span class="nm">person</span>.phoneNumbers ? <span class="nm">person</span>.phoneNumbers[<span class="nm">0</span>].value : <span class="str">"No Number"</span>;
+      <span class="nm">contacts</span>.<span class="fn">push</span>({ name: <span class="nm">name</span>, phone: <span class="nm">phone</span> });
+    });
+  }
+  
+  <span class="kw">var</span> <span class="nm">jsonData</span> = <span class="fn">JSON</span>.<span class="fn">stringify</span>(<span class="nm">contacts</span>, <span class="kw">null</span>, <span class="nm">2</span>);
+  <span class="kw">var</span> <span class="nm">ghUrl</span> = <span class="str">"https://api.github.com/repos/"</span> + <span class="nm">GITHUB_USERNAME</span> + <span class="str">"/"</span> + <span class="nm">GITHUB_REPO</span> + <span class="str">"/contents/contacts.json"</span>;
+  
+  <span class="kw">var</span> <span class="nm">getRes</span> = <span class="fn">UrlFetchApp</span>.<span class="fn">fetch</span>(<span class="nm">ghUrl</span>, {
+    headers: { Authorization: <span class="str">"token "</span> + <span class="nm">GITHUB_TOKEN</span> },
+    muteHttpExceptions: <span class="kw">true</span>
+  });
+  
+  <span class="kw">var</span> <span class="nm">sha</span> = <span class="str">""</span>;
+  <span class="kw">if</span> (<span class="nm">getRes</span>.<span class="fn">getResponseCode</span>() == <span class="nm">200</span>) {
+    <span class="nm">sha</span> = <span class="fn">JSON</span>.<span class="fn">parse</span>(<span class="nm">getRes</span>.<span class="fn">getContentText</span>()).sha;
+  }
+  
+  <span class="fn">UrlFetchApp</span>.<span class="fn">fetch</span>(<span class="nm">ghUrl</span>, {
+    method: <span class="str">"PUT"</span>,
+    headers: {
+      Authorization: <span class="str">"token "</span> + <span class="nm">GITHUB_TOKEN</span>,
+      <span class="str">"Content-Type"</span>: <span class="str">"application/json"</span>
+    },
+    payload: <span class="fn">JSON</span>.<span class="fn">stringify</span>({
+      message: <span class="str">"Sync contacts"</span>,
+      content: <span class="fn">Utilities</span>.<span class="fn">base64Encode</span>(<span class="nm">jsonData</span>),
+      sha: <span class="nm">sha</span>
+    })
+  });
+  
+  <span class="fn">Logger</span>.<span class="fn">log</span>(<span class="str">"Done! "</span> + <span class="nm">contacts</span>.length + <span class="str">" contacts synced."</span>);
+}</pre>
+          </div>
+        </div>
+      </div>
+
+      <hr>
+
+      <div class="subsection">
+        <div class="subsection-title">Step 3.5 — पहली बार Run करो</div>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-content">ऊपर <strong>"चलाएं"</strong> button दबाओ</div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-content">Permission popup → <strong>"Review permissions"</strong> → Gmail select करो</div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-content"><strong>"Advanced"</strong> → <strong>"Go to Contacts Sync (unsafe)"</strong> → <strong>"Allow"</strong></div>
+          </div>
+          <div class="step">
+            <div class="step-num">4</div>
+            <div class="step-content">Log में दिखेगा: <span style="color: var(--green); font-family: 'JetBrains Mono'; font-size: 13px;">Done! 420 contacts synced.</span> 🎉</div>
+          </div>
+        </div>
+        <div class="success-box" style="margin-top: 14px;">
+          🎉 अगर यह दिखा तो setup सफल है! GitHub पर contacts.json भर गई होगी।
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- PART 4 — Auto Timer -->
+  <div class="part">
+    <div class="part-header">
+      <div class="part-icon orange">⏰</div>
+      <div>
+        <div class="part-title">PART 4 — Auto Timer लगाओ</div>
+        <div class="part-subtitle">हर घंटे automatically contacts sync होंगे</div>
+      </div>
+    </div>
+    <div class="part-body">
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-content">Apps Script → Left side → <strong>⏰ Triggers</strong> (घड़ी icon)</div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-content"><strong>"+ Add Trigger"</strong> दबाओ</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-content">Settings भरो:</div>
+        </div>
+      </div>
+
+      <div class="table-wrap" style="margin-top: 12px;">
+        <table>
+          <thead><tr><th>Setting</th><th>Value</th></tr></thead>
+          <tbody>
+            <tr><td>Function</td><td><code>syncContacts</code></td></tr>
+            <tr><td>Event source</td><td>Time-driven</td></tr>
+            <tr><td>Type</td><td>Hour timer</td></tr>
+            <tr><td>Every</td><td>1 hour</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="step" style="margin-top: 14px;">
+        <div class="step-num">4</div>
+        <div class="step-content"><strong>Save</strong> ✅ — अब हर घंटे automatically sync होगा!</div>
+      </div>
+
+      <div class="success-box" style="margin-top: 16px;">
+        🎉 रोज़ कुछ करने की ज़रूरत नहीं! Google में contact add करो — 1 घंटे में website पर दिखेगा।
+      </div>
+    </div>
+  </div>
+
+  <!-- PART 5 — Website -->
+  <div class="part">
+    <div class="part-header">
+      <div class="part-icon teal">🌐</div>
+      <div>
+        <div class="part-title">PART 5 — Website में contacts.json जोड़ो</div>
+        <div class="part-subtitle">script.js को contacts.json से data लेने के लिए update करो</div>
+      </div>
+    </div>
+    <div class="part-body">
+
+      <div class="subsection">
+        <div class="subsection-title">Step 5.1 — contacts.json बनाओ</div>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-content">जाओ → <a href="https://github.com/dipakraj09/My-Contacts" target="_blank" class="link">github.com/dipakraj09/My-Contacts</a></div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-content"><strong>"Add file"</strong> → <strong>"Create new file"</strong></div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-content">नाम: <span class="tag">contacts.json</span> → Content: <span class="tag">[]</span> → <strong>"Commit changes"</strong> ✅</div>
+          </div>
+          <div class="step">
+            <div class="step-num">4</div>
+            <div class="step-content">Apps Script से Run करो → file contacts से भर जाएगी</div>
+          </div>
+        </div>
+      </div>
+
+      <hr>
+
+      <div class="subsection">
+        <div class="subsection-title">Step 5.2 — script.js में यह code add करो</div>
+        <div class="info-box">
+          💡 <strong>script.js</strong> के bottom में पुराना initialization हटाकर यह लगाओ
+        </div>
+
+        <div class="code-block code-collapsed" id="fetch-block">
+          <div class="code-header">
+            <span class="code-lang">📄 script.js — fetch contacts.json</span>
+            <div class="code-actions">
+              <button class="toggle-btn" onclick="toggleCode('fetch-block', this)">👁️ Show More</button>
+              <button class="copy-btn" onclick="copyCode(this, 'fetch-code')">📋 Copy</button>
+            </div>
+          </div>
+          <div class="code-body">
+            <pre id="fetch-code"><span class="cm">// contacts.json से data load करो</span>
+<span class="fn">fetch</span>(<span class="str">'contacts.json'</span>)
+  .<span class="fn">then</span>(<span class="nm">r</span>=&gt;<span class="nm">r</span>.<span class="fn">json</span>())
+  .<span class="fn">then</span>(<span class="nm">data</span>=&gt;{
+    <span class="nm">contacts</span>=<span class="nm">data</span>.<span class="fn">map</span>(<span class="nm">c</span>=&gt;{
+      <span class="kw">const</span> <span class="nm">phone</span>=(<span class="nm">c</span>.phoneNumbers&amp;&amp;<span class="nm">c</span>.phoneNumbers[<span class="nm">0</span>]&amp;&amp;<span class="nm">c</span>.phoneNumbers[<span class="nm">0</span>].value)||<span class="nm">c</span>.phone||<span class="str">''</span>;
+      <span class="kw">const</span> <span class="nm">name</span>=(<span class="nm">c</span>.names&amp;&amp;<span class="nm">c</span>.names[<span class="nm">0</span>]&amp;&amp;<span class="nm">c</span>.names[<span class="nm">0</span>].displayName)||<span class="nm">c</span>.name||<span class="str">''</span>;
+      <span class="kw">const</span> <span class="nm">photo</span>=<span class="fn">photosByPhone</span>[<span class="fn">phoneKey</span>(<span class="nm">phone</span>)]||<span class="str">''</span>;
+      <span class="kw">return</span>{name,phone,photo};
+    }).<span class="fn">filter</span>(<span class="nm">c</span>=&gt;<span class="nm">c</span>.name&amp;&amp;<span class="nm">c</span>.phone).<span class="fn">sort</span>((<span class="nm">a</span>,<span class="nm">b</span>)=&gt;<span class="nm">a</span>.name.<span class="fn">localeCompare</span>(<span class="nm">b</span>.name));
+    document.<span class="fn">getElementById</span>(<span class="str">'total'</span>).textContent=<span class="nm">contacts</span>.length+<span class="str">' total contacts'</span>;
+    <span class="fn">buildAlpha</span>();
+    <span class="nm">openLetters</span>=<span class="kw">new</span> <span class="fn">Set</span>(<span class="str">'ABCDEFGHIJKLMNOPQRSTUVWXYZ'</span>.<span class="fn">split</span>(<span class="str">''</span>));
+    <span class="fn">applyFeatures</span>();
+  });</pre>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ERRORS TABLE -->
+  <div class="part">
+    <div class="part-header">
+      <div class="part-icon" style="background: rgba(255,123,114,0.15); border: 1px solid rgba(255,123,114,0.3);">❌</div>
+      <div>
+        <div class="part-title">Common Errors और Solutions</div>
+        <div class="part-subtitle">अगर कोई error आए तो यहाँ देखो</div>
+      </div>
+    </div>
+    <div class="part-body">
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Error</th><th>Solution</th></tr></thead>
+          <tbody>
+            <tr><td><code>People is not defined</code></td><td>appsscript.json में oauthScopes check करो</td></tr>
+            <tr><td><code>insufficient authentication scopes</code></td><td>appsscript.json सही से paste हुआ?</td></tr>
+            <tr><td><code>People API has not been used</code></td><td>Cloud Console में People API enable करो और GCP project link करो</td></tr>
+            <tr><td><code>Access blocked</code></td><td>Audience में test user (अपनी Gmail) add करो</td></tr>
+            <tr><td><code>403 PERMISSION_DENIED</code></td><td>GCP project number Apps Script से link करो</td></tr>
+            <tr><td><code>Token काम नहीं कर रहा</code></td><td>Token delete करो → नया classic token बनाओ (repo permission के साथ)</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- IMPORTANT LINKS -->
+  <div class="part">
+    <div class="part-header">
+      <div class="part-icon green">🔗</div>
+      <div>
+        <div class="part-title">Important Links</div>
+        <div class="part-subtitle">सारे ज़रूरी links एक जगह</div>
+      </div>
+    </div>
+    <div class="part-body">
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>काम</th><th>Link</th></tr></thead>
+          <tbody>
+            <tr><td>Apps Script</td><td><a href="https://script.google.com" target="_blank">script.google.com</a></td></tr>
+            <tr><td>GitHub Token (Classic)</td><td><a href="https://github.com/settings/tokens?type=classic" target="_blank">github.com/settings/tokens?type=classic</a></td></tr>
+            <tr><td>Cloud Console</td><td><a href="https://console.cloud.google.com" target="_blank">console.cloud.google.com</a></td></tr>
+            <tr><td>People API Enable</td><td><a href="https://console.cloud.google.com/apis/library/people.googleapis.com" target="_blank">People API Library</a></td></tr>
+            <tr><td>GitHub Repo</td><td><a href="https://github.com/dipakraj09/My-Contacts" target="_blank">github.com/dipakraj09/My-Contacts</a></td></tr>
+            <tr><td>Google Contacts</td><td><a href="https://contacts.google.com" target="_blank">contacts.google.com</a></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- REMEMBER -->
+  <div class="part">
+    <div class="part-header">
+      <div class="part-icon orange">💡</div>
+      <div>
+        <div class="part-title">याद रखने वाली बातें</div>
+        <div class="part-subtitle">Important rules जो हमेशा follow करो</div>
+      </div>
+    </div>
+    <div class="part-body">
+      <div class="note-list">
+        <div class="note red">🔴 Token कभी chat में मत भेजो — किसी को भी नहीं</div>
+        <div class="note yellow">🟡 हमेशा Classic token use करो — Fine-grained नहीं</div>
+        <div class="note green">🟢 Token में सिर्फ "repo" permission चाहिए</div>
+        <div class="note blue">🔵 GCP Project number → Cloud Console Dashboard पर मिलेगा</div>
+        <div class="note purple">🟣 Apps Script और Cloud Console का project एक ही होना चाहिए</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FINAL CHECKLIST -->
+  <div class="part">
+    <div class="part-header">
+      <div class="part-icon green">✅</div>
+      <div>
+        <div class="part-title">Final Checklist</div>
+        <div class="part-subtitle">सब tick हो जाए तो setup complete है!</div>
+      </div>
+    </div>
+    <div class="part-body">
+      <div class="checklist">
+        <label class="check-item"><input type="checkbox" onchange="this.closest('.check-item').classList.toggle('done', this.checked)"> GitHub Classic Token बना है (repo permission के साथ)</label>
+        <label class="check-item"><input type="checkbox" onchange="this.closest('.check-item').classList.toggle('done', this.checked)"> Cloud Console में People API Enabled है</label>
+        <label class="check-item"><input type="checkbox" onchange="this.closest('.check-item').classList.toggle('done', this.checked)"> OAuth Consent Screen बना है (External)</label>
+        <label class="check-item"><input type="checkbox" onchange="this.closest('.check-item').classList.toggle('done', this.checked)"> Test User add है (अपनी Gmail)</label>
+        <label class="check-item"><input type="checkbox" onchange="this.closest('.check-item').classList.toggle('done', this.checked)"> Apps Script में GCP Project linked है</label>
+        <label class="check-item"><input type="checkbox" onchange="this.closest('.check-item').classList.toggle('done', this.checked)"> appsscript.json में oauthScopes हैं</label>
+        <label class="check-item"><input type="checkbox" onchange="this.closest('.check-item').classList.toggle('done', this.checked)"> contacts.json GitHub पर बनी है</label>
+        <label class="check-item"><input type="checkbox" onchange="this.closest('.check-item').classList.toggle('done', this.checked)"> Script run करने पर "Done! X contacts synced." दिखा</label>
+        <label class="check-item"><input type="checkbox" onchange="this.closest('.check-item').classList.toggle('done', this.checked)"> Auto Timer set है (हर 1 घंटे)</label>
+        <label class="check-item"><input type="checkbox" onchange="this.closest('.check-item').classList.toggle('done', this.checked)"> Website की script.js updated है</label>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <p>Guide बनाया: <strong>Claude Sonnet</strong> | June 24, 2026</p>
+  <p style="margin-top: 8px; color: var(--muted-footer);">"3 घंटे की मेहनत, हमेशा के लिए automatic!" 🚀</p>
+  <div style="margin-top: 16px; display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+    <a href="https://claude.ai/share/44b27baa-98c3-4f1d-a9f3-5c13a8e24fcc" target="_blank" style="color: #ff8c69; text-decoration: none; font-size: 13px;">❤️ Claude Conversation</a>
+    <a href="https://github.com/dipakraj09/My-Contacts" target="_blank" style="color: #58a6ff; text-decoration: none; font-size: 13px;">⭐ GitHub Repo</a>
+  </div>
+</div>
+
+
+
+
+
+<script src="script.js" defer=""></script></body></html>
